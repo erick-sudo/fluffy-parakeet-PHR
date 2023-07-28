@@ -53,7 +53,7 @@ function NavigationBar({ pathname, showNav, updateNav }) {
             </Badge>
           </span>
         </ListGroupItem>
-        <ListGroupItem action className="px-4 py-2">
+        <ListGroupItem onClick={() => navigate("/calendar")} action className="px-4 py-2">
           <span className="text-2xl text-blue-800">
             <FontAwesomeIcon icon={faCalendarAlt} />
           </span>

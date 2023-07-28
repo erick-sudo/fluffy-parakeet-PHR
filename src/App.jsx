@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import Profile from "./components/Profile";
 import Register from "./components/Register";
 import { NavigationBar } from "./components/NavigationBar";
+import PhrCalendar from "./components/common/PhrCalendar";
 
 function App() {
   const location = useLocation();
@@ -23,6 +24,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile/*" element={<Profile />} />
+            <Route path="/calendar" element={<PhrCalendar />} />
           </Routes>
         </div>
       </div>

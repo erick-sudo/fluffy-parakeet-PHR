@@ -5,10 +5,10 @@ import { Card } from "react-bootstrap";
 
 const HealthDocuments = () => {
   return (
-    <div>
+    <div className="grid grid-cols-3">
       {new Array(13).fill(0).map((doc, index) => {
         return (
-          <Card key={index}>
+          <Card style={{borderRadius: '0'}} key={index} className="max-w-[300px]">
             <img src={doc_image} alt="Doc" />
           </Card>
         );

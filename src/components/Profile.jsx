@@ -13,6 +13,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import ConversationScreen from "./ConversationScreen";
+import HealthDocuments from "./common/HealthDocuments";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ const Profile = () => {
           <Route path="/insurance" element={<InsuranceInformationForm />} />
         </Routes>
       </div>
-      <div className="bg-white flex-grow max-w-lg">
+      <div className="bg-white flex-grow flex flex-col max-w-lg rounded-lg">
         <ConversationScreen />
       </div>
     </div>
