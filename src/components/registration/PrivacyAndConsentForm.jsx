@@ -4,7 +4,7 @@ import { Form, Button, Card } from "react-bootstrap";
 const PrivacyAndConsentForm = () => {
   return (
     <div className="m-4">
-      <Card style={{border: "none"}}>
+      <Card>
         <Card.Header>
           <span>Privacy and Consent</span>
         </Card.Header>
@@ -37,10 +37,6 @@ const PrivacyAndConsentForm = () => {
                 label="4. I understand the privacy policies and practices in place to safeguard my health records."
               />
             </Form.Group>
-
-            <Button className="w-full my-4" variant="primary" type="submit">
-              Submit
-            </Button>
           </Form>
         </Card.Body>
       </Card>

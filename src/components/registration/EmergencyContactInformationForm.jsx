@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
+import SubmitButton from "../common/SubmitButton";
+import { AuthContext } from "../AuthContext";
 
 const EmergencyContactInformationForm = () => {
+  const { submitHandler } = useContext(AuthContext);
+
+  const [formData, setFormData] = useState({})
+
   return (
     <div className="p-4">
       <Card>
@@ -9,7 +15,16 @@ const EmergencyContactInformationForm = () => {
           <span>Emergency Contact Information</span>
         </Card.Header>
         <Card.Body>
-          <Form>
+          <Form
+            onSubmit={(e) => {
+              submitHandler({
+                event: e,
+                endPoint: "emergency_contact_information",
+                httpMethod: "PATCH",
+                payload: formData,
+              });
+            }}
+          >
             <Form.Group className="mb-3" controlId="formEmergencyContactName">
               <Form.Label>Full Name of Emergency Contact</Form.Label>
               <Form.Control
@@ -104,9 +119,7 @@ const EmergencyContactInformationForm = () => {
               </Form.Group>
             </div>
 
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
+            <SubmitButton val="Update Emergency Information" />
           </Form>
         </Card.Body>
       </Card>

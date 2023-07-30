@@ -6,9 +6,10 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
 import Profile from "./components/Profile";
-import Register from "./components/Register";
+import Access from "./components/Register";
 import { NavigationBar } from "./components/NavigationBar";
 import PhrCalendar from "./components/common/PhrCalendar";
+import MultiEditableJson from "./components/common/MultiEditableObject";
 
 function App() {
   const location = useLocation();
@@ -21,10 +22,11 @@ function App() {
         <div className="relative flex flex-col flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Access t="login" />} />
+            <Route path="/register" element={<Access t="register" />} />
             <Route path="/profile/*" element={<Profile />} />
             <Route path="/calendar" element={<PhrCalendar />} />
+            <Route path="/multi" element={<MultiEditableJson title={"Medical History"} />} />
           </Routes>
         </div>
       </div>

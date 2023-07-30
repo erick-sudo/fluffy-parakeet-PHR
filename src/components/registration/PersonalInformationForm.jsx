@@ -1,21 +1,36 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
+import SubmitButton from "../common/SubmitButton";
+import { AuthContext } from "../AuthContext";
 
 const PersonalInformationForm = () => {
+  const { submitHandler } = useContext(AuthContext);
+
+  const [formData, setFormData] = useState({});
+
   return (
     <div className="p-4">
-      <Card style={{backgroundColor: 'transparent', border: 'none'}} data-bs-theme="">
-        <Card.Header style={{backgroundColor: 'transparent', border: 'none'}}>
+      <Card data-bs-theme="">
+        <Card.Header>
           <span>Personal Information</span>
         </Card.Header>
         <Card.Body>
-          <Form>
+          <Form
+            onSubmit={(e) =>
+              submitHandler({
+                event: e,
+                endPoint: "personal_information",
+                httpMethod: "PATCH",
+                payload: formData,
+              })
+            }
+          >
             <Form.Group className="mb-3" controlId="formFullName">
               <Form.Label>Full Name:</Form.Label>
               <Form.Control
                 type="text"
                 name="full_name"
-                placeholder="Enter full name"
+                placeholder="full name"
               />
             </Form.Group>
 
@@ -53,7 +68,7 @@ const PersonalInformationForm = () => {
               <Form.Control
                 type="text"
                 name="social_security_number"
-                placeholder="Enter SSN"
+                placeholder="SSN"
               />
             </Form.Group>
 
@@ -73,7 +88,7 @@ const PersonalInformationForm = () => {
               <Form.Control
                 type="text"
                 name="occupation"
-                placeholder="Enter occupation"
+                placeholder="occupation"
               />
             </Form.Group>
 
@@ -82,7 +97,7 @@ const PersonalInformationForm = () => {
               <Form.Control
                 type="text"
                 name="preferred_language"
-                placeholder="Enter preferred language"
+                placeholder="preferred language"
               />
             </Form.Group>
 
@@ -91,7 +106,7 @@ const PersonalInformationForm = () => {
               <Form.Control
                 type="tel"
                 name="contact_number_home"
-                placeholder="Enter home contact number"
+                placeholder="home contact number"
               />
             </Form.Group>
 
@@ -100,7 +115,7 @@ const PersonalInformationForm = () => {
               <Form.Control
                 type="tel"
                 name="contact_number_mobile"
-                placeholder="Enter mobile contact number"
+                placeholder="mobile contact number"
               />
             </Form.Group>
 
@@ -109,7 +124,7 @@ const PersonalInformationForm = () => {
               <Form.Control
                 type="email"
                 name="email_address"
-                placeholder="Enter email address"
+                placeholder="email address"
               />
             </Form.Group>
 
@@ -119,7 +134,7 @@ const PersonalInformationForm = () => {
                 <Form.Control
                   type="text"
                   name="address_street"
-                  placeholder="Enter street address"
+                  placeholder="street address"
                 />
               </Form.Group>
 
@@ -128,7 +143,7 @@ const PersonalInformationForm = () => {
                 <Form.Control
                   type="text"
                   name="address_city"
-                  placeholder="Enter city"
+                  placeholder="city"
                 />
               </Form.Group>
 
@@ -137,7 +152,7 @@ const PersonalInformationForm = () => {
                 <Form.Control
                   type="text"
                   name="address_state"
-                  placeholder="Enter state/province"
+                  placeholder="state/province"
                 />
               </Form.Group>
 
@@ -146,7 +161,7 @@ const PersonalInformationForm = () => {
                 <Form.Control
                   type="text"
                   name="address_zip"
-                  placeholder="Enter ZIP/postal code"
+                  placeholder="ZIP/postal code"
                 />
               </Form.Group>
 
@@ -155,10 +170,12 @@ const PersonalInformationForm = () => {
                 <Form.Control
                   type="text"
                   name="address_country"
-                  placeholder="Enter country"
+                  placeholder="country"
                 />
               </Form.Group>
             </div>
+
+            <SubmitButton val="Update Personal Information" />
           </Form>
         </Card.Body>
       </Card>

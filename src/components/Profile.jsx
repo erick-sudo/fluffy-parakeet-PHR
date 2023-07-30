@@ -59,9 +59,9 @@ const Profile = () => {
           <Route path="/insurance" element={<InsuranceInformationForm />} />
         </Routes>
       </div>
-      <div className="bg-white flex-grow flex flex-col max-w-lg rounded-lg">
+      {/* <div className="bg-white flex-grow flex flex-col max-w-lg rounded-lg">
         <ConversationScreen />
-      </div>
+      </div> */}
     </div>
   );
 };
