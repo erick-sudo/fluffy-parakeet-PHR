@@ -11,27 +11,47 @@ import SubmitButton from "./common/SubmitButton";
 
 const AuthContext = createContext();
 
+function resetObject(obj) {
+  return Object.keys(obj).reduce(
+    (prev, curr) => ({
+      ...prev,
+      [curr]:
+        obj[curr] instanceof Array
+          ? []
+          : typeof obj[curr] === "object"
+          ? resetObject(obj[curr])
+          : typeof obj[curr] === "number"
+          ? 0
+          : "",
+    }),
+    {}
+  );
+}
+
 function TableArray({ title = "", jsonArray = [], parentKey, updateFields }) {
-  const columns = jsonArray.length > 0 ? Object.keys(jsonArray[0]) : [];
+  const obj = jsonArray[0];
+  const columns = jsonArray.length > 0 ? Object.keys(obj) : [];
 
   const addRow = () => {
-    const newRow = {};
-    columns.forEach((column) => {
-      newRow[column] = "";
-    });
-    updateFields(parentKey, newRow, true);
+    updateFields(parentKey, resetObject(obj), 1);
+  };
+
+  const removeRow = (idx) => {
+    updateFields(parentKey, idx, -1);
   };
 
   return (
     <Card className="my-2">
-      <Card.Header>
-        <span className="font-bold text-xl text-blue-800">
-          {camelCaseToTitleCase(title)}
-        </span>
-      </Card.Header>
+      {title && (
+        <Card.Header>
+          <span className="font-bold text-xl text-blue-800">
+            {camelCaseToTitleCase(title)}
+          </span>
+        </Card.Header>
+      )}
       <Card.Body>
-        <ColumnNames columns={columns} />
-        <div>
+        <div className="">
+          <ColumnNames columns={columns} />
           {jsonArray.length > 0 &&
             jsonArray.map((element, idx) => (
               <EditableRow
@@ -41,6 +61,8 @@ function TableArray({ title = "", jsonArray = [], parentKey, updateFields }) {
                 last={idx === jsonArray.length - 1}
                 columns={columns}
                 obj={element}
+                removeRow={removeRow}
+                index={idx}
               />
             ))}
         </div>
@@ -56,25 +78,26 @@ function TableArray({ title = "", jsonArray = [], parentKey, updateFields }) {
 }
 
 function keyBreakDown(newObject, keys, value, add) {
-  
-  let newRef = newObject
-  
-  for (let i=0;i<keys.length;i++) {
+  let newRef = newObject;
+  for (let i = 0; i < keys.length; i++) {
     const k = keys[i];
-    if(i !== keys.length - 1) {
+    if (i !== keys.length - 1) {
       if (k.endsWith("]")) {
         const arrayName = k.slice(0, k.indexOf("["));
         const index = parseInt(k.slice(k.indexOf("[") + 1, k.indexOf("]")));
-        const newKeys = keys.slice(1)
-        newRef = newRef[arrayName][index]
+        const newKeys = keys.slice(1);
+        newRef =
+          arrayName === "root" ? newRef[index] : newRef[arrayName][index];
       } else {
-        newRef = newRef[k]
+        newRef = k === "root" ? newRef : newRef[k];
       }
     } else {
-      if(add) {
-        newRef[k].push(value)
+      if (add === 1) {
+        k === "root" ? newRef.push(value) : newRef[k].push(value);
+      } else if (add === -1) {
+        k === "root" ? newRef.splice(value, 1) : newRef[k].splice(value, 1);
       } else {
-        newRef[k] =  value
+        newRef[k] = value;
       }
     }
   }
@@ -82,55 +105,61 @@ function keyBreakDown(newObject, keys, value, add) {
 
 function displayObject(obj, parentKey, updateFields) {
   return obj instanceof Array ? (
-    <TableArray jsonArray={obj} />
+    <TableArray
+      parentKey={parentKey}
+      updateFields={updateFields}
+      jsonArray={obj}
+    />
   ) : (
-    Object.keys(obj).map((ob, index) => {
-      if (obj[ob] instanceof Array) {
-        return (
-          <TableArray
-            parentKey={`${parentKey}-${ob}`}
-            title={ob}
-            jsonArray={obj[ob]}
-            updateFields={updateFields}
-          />
-        );
-      } else if (typeof obj[ob] === "object") {
-        return (
-          <div key={index} className="mb-1">
-            {displayObject(obj[ob], `${parentKey}-${ob}`, updateFields).map(
-              (c, idx) => (
-                <div key={idx}>{c}</div>
-              )
-            )}
-          </div>
-        );
-      } else {
-        return (
-          <PairView
-            newStyles={{ borderRadius: "0" }}
-            h
-            key={index}
-            k={
-              <span className="text-blue-700 font-bold text-sm">
-                {camelCaseToTitleCase(ob)}
-              </span>
-            }
-            v={
-              <ControlledCell
-                updateFields={updateFields}
-                parentKey={`${parentKey}-${ob}`}
-                style={{
-                  border: "none",
-                  outline: "none",
-                  borderRadius: "0",
-                }}
-                value={obj[ob]}
-              />
-            }
-          />
-        );
-      }
-    }).map((div, index) => <div key={index}>{div}</div>)
+    Object.keys(obj)
+      .map((ob, index) => {
+        if (obj[ob] instanceof Array) {
+          return (
+            <TableArray
+              parentKey={`${parentKey}-${ob}`}
+              title={ob}
+              jsonArray={obj[ob]}
+              updateFields={updateFields}
+            />
+          );
+        } else if (typeof obj[ob] === "object") {
+          return (
+            <div key={index} className="mb-1">
+              {displayObject(obj[ob], `${parentKey}-${ob}`, updateFields).map(
+                (c, idx) => (
+                  <div key={idx}>{c}</div>
+                )
+              )}
+            </div>
+          );
+        } else {
+          return (
+            <PairView
+              newStyles={{ borderRadius: "0" }}
+              key={index}
+              k={
+                <span className="text-blue-700 font-bold text-sm">
+                  {camelCaseToTitleCase(ob)}
+                </span>
+              }
+              v={
+                <ControlledCell
+                  holder={camelCaseToTitleCase(ob)}
+                  updateFields={updateFields}
+                  parentKey={`${parentKey}-${ob}`}
+                  style={{
+                    border: "none",
+                    outline: "none",
+                    borderRadius: "0",
+                  }}
+                  value={obj[ob]}
+                />
+              }
+            />
+          );
+        }
+      })
+      .map((div, index) => <div key={index}>{div}</div>)
   );
 }
 
@@ -248,6 +277,8 @@ function AuthProvider({ children }) {
     capitalize,
     camelCaseToTitleCase,
     keyBreakDown,
+    TableArray,
+    resetObject,
   };
 
   return (

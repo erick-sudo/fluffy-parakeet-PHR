@@ -1,12 +1,15 @@
 import React from "react";
 import { Form, Card } from "react-bootstrap";
+import SubmitButton from "../common/SubmitButton";
 
 const LifestyleHabitsForm = () => {
   return (
     <div className="m-4">
       <Card>
         <Card.Header>
-          <span className="">Lifestyle and Habits</span>
+          <span className="text-blue-800 font-bold text-2xl">
+            Lifestyle and Habits
+          </span>
         </Card.Header>
         <Card.Body>
           <Form>
@@ -109,6 +112,9 @@ const LifestyleHabitsForm = () => {
             </Form.Group>
           </Form>
         </Card.Body>
+        <Card.Footer>
+          <SubmitButton val="Update Chnages" />
+        </Card.Footer>
       </Card>
     </div>
   );

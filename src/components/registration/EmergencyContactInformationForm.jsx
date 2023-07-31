@@ -12,7 +12,7 @@ const EmergencyContactInformationForm = () => {
     <div className="p-4">
       <Card>
         <Card.Header>
-          <span>Emergency Contact Information</span>
+          <span className="text-blue-800 font-bold text-2xl">Emergency Contact Information</span>
         </Card.Header>
         <Card.Body>
           <Form

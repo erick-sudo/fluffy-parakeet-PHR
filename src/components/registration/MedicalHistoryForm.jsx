@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Container, Row, Form, Button, Col, Card } from "react-bootstrap";
 import DisplayObject from "../common/DisplayObject";
 import MultiEditableJson from "../common/MultiEditableObject";
+import SubmitButton from "../common/SubmitButton";
 
 const MedicalHistoryForm = () => {
   // State to store form data
@@ -156,7 +157,7 @@ const MedicalHistoryForm = () => {
 
   return (
     <div className="mx-4">
-      <MultiEditableJson title={"Medical History"} jsonData={formData} />
+      <MultiEditableJson title={"Medical History"} footer={<SubmitButton val="Save changes" />} jsonData={formData} />
     </div>
   );
 };

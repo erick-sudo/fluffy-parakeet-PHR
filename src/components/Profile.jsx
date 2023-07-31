@@ -47,7 +47,7 @@ const Profile = () => {
           ))}
         </ListGroup>
       </div>
-      <div className="flex-grow scroll_y py-2 max-w-xl">
+      <div className="flex-grow scroll_y py-2 max-w">
         <Routes>
           <Route path="" element={<PersonalInformationForm />} />
           <Route

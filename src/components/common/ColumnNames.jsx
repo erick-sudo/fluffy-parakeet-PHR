@@ -7,17 +7,17 @@ function ColumnNames({ columns = [] }) {
     const { camelCaseToTitleCase } = useContext(AuthContext)
 
   return (
-    <ListGroup horizontal style={{ width: "100%" }}>
+    <ListGroup horizontal className="" style={{ width: "100%", padding: "0" }}>
       {columns.map((column, i) => {
         return (
           <ListGroupItem
             style={{
-              width: `${100 / columns?.length}%`,
+              width: `${(100 / columns.length)}%`,
               borderRadius: "0",
               border: 'none',
               borderBottom: "1px solid blue",
-              borderRight: `${i < columns.length - 1 ? "solid 1px blue" : "none"}`,
-              borderLeft: `${"none"}`,
+              borderLeft: `${i > 0 ? "solid 1px blue" : "none"}`,
+              borderRight: `${"none"}`,
             }}
             className="font-bold"
             key={i}

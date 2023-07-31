@@ -10,9 +10,9 @@ const PersonalInformationForm = () => {
 
   return (
     <div className="p-4">
-      <Card data-bs-theme="">
+      <Card>
         <Card.Header>
-          <span>Personal Information</span>
+          <span className="text-blue-800 font-bold text-2xl">Personal Information</span>
         </Card.Header>
         <Card.Body>
           <Form
