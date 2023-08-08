@@ -147,9 +147,9 @@ const ConversationScreen = () => {
   };
 
   return (
-    <Container className="flex flex-col flex-grow rounded-lg">
+    <Container className="flex flex-col flex-grow border rounded-lg">
       <div className="flex-grow relative my-2 rounded-lg">
-        <div className="absolute inset-0 scroll_y">
+        <div className="">
           <Conversations conversations={messages} receiver_id={2} />
         </div>
       </div>

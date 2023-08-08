@@ -33,7 +33,7 @@ function NavigationBar({ pathname, showNav, updateNav }) {
             </Badge>
           </span>
         </ListGroupItem>
-        <ListGroupItem onClick={() => navigate("/messages")} action className="px-4 py-2">
+        <ListGroupItem onClick={() => navigate("/alerts/messages")} action className="px-4 py-2">
           <span className="text-2xl text-blue-800">
             <FontAwesomeIcon icon={faEnvelope} />
           </span>
@@ -43,7 +43,7 @@ function NavigationBar({ pathname, showNav, updateNav }) {
             </Badge>
           </span>
         </ListGroupItem>
-        <ListGroupItem onClick={() => navigate("/notifications")} action className="px-4 py-2">
+        <ListGroupItem onClick={() => navigate("/alerts/notifications")} action className="px-4 py-2">
           <span className="text-2xl text-blue-800">
             <FontAwesomeIcon icon={faBell} bounce />
           </span>

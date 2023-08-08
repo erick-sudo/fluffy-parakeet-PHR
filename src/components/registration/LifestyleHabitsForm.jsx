@@ -12,7 +12,7 @@ const LifestyleHabitsForm = () => {
           </span>
         </Card.Header>
         <Card.Body>
-          <Form>
+          <Form className="grid grid-cols-2 gap-4">
             <Form.Group controlId="smokingStatus">
               <Form.Label>1. Smoking Status:</Form.Label>
               <div>

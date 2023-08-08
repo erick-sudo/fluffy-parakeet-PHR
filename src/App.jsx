@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { Routes, Route, useLocation, NavLink } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import "./App.css";
-import Login from "./components/Login";
 import Home from "./components/Home";
-import Footer from "./components/Footer";
 import Profile from "./components/Profile";
 import Access from "./components/Register";
 import { NavigationBar } from "./components/NavigationBar";
 import PhrCalendar from "./components/common/PhrCalendar";
-import MultiEditableJson from "./components/common/MultiEditableObject";
+import MessagesNotifications from "./components/MessagesNotifications";
 
 function App() {
   const location = useLocation();
@@ -26,7 +24,7 @@ function App() {
             <Route path="/register" element={<Access t="register" />} />
             <Route path="/profile/*" element={<Profile />} />
             <Route path="/calendar" element={<PhrCalendar />} />
-            <Route path="/multi" element={<MultiEditableJson title={"Medical History"} />} />
+            <Route path="/alerts" element={<MessagesNotifications />} />
           </Routes>
         </div>
       </div>

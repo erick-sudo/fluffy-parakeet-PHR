@@ -9,6 +9,8 @@ import { EditableRow, ControlledCell } from "./common/EditableRow";
 import ColumnNames from "./common/ColumnNames";
 import SubmitButton from "./common/SubmitButton";
 
+
+
 const AuthContext = createContext();
 
 function resetObject(obj) {
@@ -176,6 +178,25 @@ function capitalize(str) {
 
 function AuthProvider({ children }) {
   const navigate = useNavigate();
+
+  // // Establish WebSocket connection
+  // const socket = new WebSocket("ws://your-websocket-server-url");
+
+  // socket.onopen = (event) => {
+  //   console.log("WebSocket connection opened")
+  // }
+
+  // socket.onmessage = (event) => {
+  //   console.log(event.data)
+  // }
+
+  // socket.onerror = (error) => {
+  //   console.log('WebSocket error:', error);
+  // }
+
+  // socket.onclose = (event) => {
+  //   console.log('WebSocket connection closed:', event);
+  // };
 
   const Toast = Swal.mixin({
     toast: true,
